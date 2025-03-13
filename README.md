@@ -1,32 +1,26 @@
 # 📌 Repositório de Estudos de SQL
 
-Este repositório contém scripts SQL para estudo e prática
-
-
+Este repositório contém scripts SQL para estudo e prática, juntamente com o Banco de Dados oferecido pela Microsoft Adventure Works!
 
 ## 📂 Estrutura dos Arquivos
 
 ### 📌 1. Criando Banco de Dados (`00 - Criando Banco de Dados.sql`)
 
-Este script cria o banco de dados `BDTESTE`. Criar um banco de dados é o primeiro passo para armazenar e gerenciar informações de maneira estruturada.
+Este script cria o banco de dados `BDTESTE`, que serve como base para os exemplos e práticas subsequentes.
 
 ```sql
 CREATE DATABASE BDTESTE;
 GO
 ```
 
-Após a criação, é possível configurar opções adicionais, como:
-
-- Caminho dos arquivos de dados e log.
-- Tamanho inicial e crescimento automático.
-
 ---
 
 ### 📌 2. Criando Tabelas (`01 - Criando Tabelas no Banco.sql`)
 
-Este script contém a criação de tabelas dentro do banco `BDTESTE`.  
+Este script contém a criação de tabelas dentro do banco `BDTESTE`, estabelecendo a estrutura necessária para armazenar informações de alunos, cursos e matrículas.
 
-**🔹 Exemplo 1: Criando a tabela `ALUNO`**
+**🔹 Exemplo: Criando a tabela `ALUNO`**
+
 ```sql
 CREATE TABLE ALUNO (
     COD_ALUNO INT NOT NULL,
@@ -34,46 +28,15 @@ CREATE TABLE ALUNO (
 );
 GO
 ```
-📌 **Colunas:**  
-- `COD_ALUNO`: Identificação única do aluno.  
-- `NOM_ALUNO`: Nome do aluno.  
-
-**🔹 Exemplo 2: Criando a tabela `CURSO` no esquema `dbo`**
-```sql
-CREATE TABLE [dbo].[CURSO] (
-    [COD_CURSO] INT NOT NULL,
-    [NOM_CURSO] VARCHAR(100) NOT NULL
-);
-GO
-```
-📌 **Colunas:**  
-- `COD_CURSO`: Código do curso.  
-- `NOM_CURSO`: Nome do curso.  
-
-**🔹 Exemplo 3: Criando a tabela `MATRICULA` com chave primária composta**
-```sql
-CREATE TABLE [dbo].[MATRICULA] (
-    [COD_ALUNO] INT NOT NULL,
-    [COD_CURSO] INT NOT NULL,
-    [DAT_MATRICULA] DATETIME NOT NULL,
-    CONSTRAINT [PK_MATRICULA] PRIMARY KEY CLUSTERED (
-        [COD_ALUNO] ASC,
-        [COD_CURSO] ASC
-    )
-) ON [PRIMARY];
-GO
-```
-📌 **Destaques:**  
-✔ Define `COD_ALUNO` e `COD_CURSO` como **chave primária composta**.  
-✔ Especifica o **Filegroup `[PRIMARY]`** para armazenamento.  
 
 ---
 
 ### 📌 3. Criando Sinônimos (`02 - Criando Sinônimos.sql`)
 
-Os sinônimos no SQL Server são atalhos para objetos existentes, facilitando a referência a tabelas, views ou procedures.
+Este script demonstra como criar sinônimos no SQL Server, facilitando a referência a objetos do banco de dados.
 
-**🔹 Exemplo 1: Criando um sinônimo para a tabela `ALUNO`**
+**🔹 Exemplo: Criando um sinônimo para a tabela `ALUNO`**
+
 ```sql
 USE [BDTESTE];
 GO
@@ -81,32 +44,66 @@ GO
 CREATE SYNONYM TB_ALUNO_NEW FOR ALUNO;
 GO
 ```
-📌 **Agora podemos acessar `ALUNO` de duas formas:**
-```sql
-SELECT * FROM ALUNO;
-SELECT * FROM TB_ALUNO_NEW;
-```
-Ambas as consultas trazem os mesmos resultados.  
-
-**🔹 Exemplo 2: Obtendo informações do sinônimo**
-```sql
-sp_help 'TB_ALUNO_NEW';
-sp_help 'ALUNO';
-```
-📌 Exibe detalhes sobre as tabelas e sinônimos.
 
 ---
 
-## 📌 Conclusão  
+### 📌 4. Alterando Dados no Banco (`03 - Alterando Dados no Banco.sql`)
 
-Este repositório serve como um guia prático para iniciantes e profissionais que desejam reforçar seus conhecimentos em **SQL Server**, oferecendo exemplos claros e objetivos das operações essenciais no gerenciamento de bancos de dados.  
+Este script aborda operações de manipulação de dados, incluindo inserção, atualização e exclusão de registros nas tabelas.
 
-📌 **Tecnologias utilizadas:**  
-✅ **SQL Server**  
-✅ **T-SQL**  
-✅ **SQL**  
+**🔹 Exemplo 1: Inserindo dados na tabela `ALUNO`**
 
-💡 **Contribuições são bem-vindas!** Caso tenha sugestões ou melhorias, fique à vontade para abrir um _Pull Request_. 🚀  
+```sql
+INSERT INTO ALUNO (COD_ALUNO, NOM_ALUNO)
+VALUES (1, 'João Silva'), (2, 'Maria Oliveira');
+GO
+```
+
+**🔹 Exemplo 2: Atualizando dados na tabela `ALUNO`**
+
+```sql
+UPDATE ALUNO
+SET NOM_ALUNO = 'João Souza'
+WHERE COD_ALUNO = 1;
+GO
+```
+
+**🔹 Exemplo 3: Excluindo dados na tabela `ALUNO`**
+
+```sql
+DELETE FROM ALUNO
+WHERE COD_ALUNO = 2;
+GO
+```
 
 ---
+
+## 📌 Utilização do AdventureWorks
+
+Para complementar os estudos, este repositório também utiliza o banco de dados **AdventureWorks**, um banco de dados de exemplo gratuito fornecido pela Microsoft. Ele é amplamente utilizado para aprendizado e demonstração de funcionalidades do SQL Server.
+
+📌 **Como baixar e instalar o AdventureWorks:**
+
+1. Acesse o site oficial da Microsoft e baixe o arquivo `.bak` do AdventureWorks.
+2. Restaure o banco de dados no SQL Server Management Studio (SSMS) ou via script T-SQL.
+3. Utilize as tabelas e dados do AdventureWorks para testar consultas e aprimorar habilidades em SQL.
+
+🔗 [Download do AdventureWorks](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure)
+
+---
+
+## 📌 Conclusão
+
+Este repositório serve como um guia prático para iniciantes e profissionais que desejam reforçar seus conhecimentos em **SQL Server**, oferecendo exemplos claros e objetivos das operações essenciais no gerenciamento de bancos de dados.
+
+📌 **Tecnologias utilizadas:**
+
+- **SQL Server**
+- **T-SQL**
+- **AdventureWorks**
+
+💡 **Contribuições são bem-vindas!** Caso tenha sugestões ou melhorias, fique à vontade para abrir um _Pull Request_. 🚀
+
+---
+
 ✍ **Autor:** [@RafaelDiasCmp](https://github.com/RafaelDiasCmp)
